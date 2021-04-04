@@ -5,9 +5,15 @@ import { Home, ProfileDetail, Error } from '../pages';
 export function RenderRoutes() {
   return (
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/char" exact component={ProfileDetail} />
-      <Route component={Error} />
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <Route exact path="/char/:id">
+        <ProfileDetail />
+      </Route>
+      <Route>
+        <Error />
+      </Route>
     </Switch>
   );
 }

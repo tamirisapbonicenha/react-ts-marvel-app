@@ -15,7 +15,8 @@ export default function Search() {
           <Grid container justify="center">
             <Grid item md={5}>
               <TextField
-                id="outlined-basic"
+                name="search"
+                id="name"
                 label="Busque por heróis"
                 variant="outlined"
                 size="small"
@@ -24,10 +25,10 @@ export default function Search() {
             </Grid>
             <Grid item md={1}>
               <Button
-                variant="contained"
-                disableElevation
-                size="large"
                 color="primary"
+                variant="contained"
+                size="large"
+                disableElevation
                 fullWidth
               >
                 Buscar
