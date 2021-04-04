@@ -1,31 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchCharacters,
+  charactersSelector,
+} from '../../state/charactersSlice';
 import { Container, Box, Grid } from '@material-ui/core';
 import loadingImage from '../../images/loading.gif';
 import { CharacterCard, Search, Pagination } from '../../components';
-import { api } from '../../services/api';
 
 export default function Home() {
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setpages] = useState<any>({});
+  const { loading, characters, error } = useSelector(charactersSelector);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    api
-      .get('/characters')
-      .then((response) => {
-        setCharacters(response.data.data.results);
-        setpages(response.data.data);
-        setLoading(false);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    dispatch(fetchCharacters({ params: { offset: 0 } }));
+    // dispatch(fetchCharacters());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -42,8 +32,8 @@ export default function Home() {
               />
             </Box>
           ) : (
-            characters.map((character) => (
-              <Grid item sm={6} md={4}>
+            characters.map((character: any) => (
+              <Grid item sm={6} md={4} key={character.id}>
                 <CharacterCard character={character} />
               </Grid>
             ))
@@ -51,12 +41,7 @@ export default function Home() {
         </Grid>
       </Box>
       <Box py={6}>
-        <Pagination
-          itensPerPage={pages.count}
-          totalItens={pages.total}
-          currentPage={pages.offset}
-          paginate={paginate}
-        />
+        <Pagination />
       </Box>
     </Container>
   );

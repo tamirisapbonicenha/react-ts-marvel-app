@@ -1,24 +1,40 @@
-import { Box, Grid, Button } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchCharacters,
+  charactersSelector,
+} from '../../state/charactersSlice';
 import useStyles from './Pagination.styles';
 
-function Pagination({ itensPerPage, totalItens, currentPage, paginate }: any) {
+function Pagination() {
   const classes = useStyles();
+  const {
+    pagination: { limit, total, offset },
+  } = useSelector(charactersSelector);
+  const dispatch = useDispatch();
+
+  const page = offset === 0 ? 1 : offset / limit;
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalItens / itensPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(total / limit); i++) {
     pageNumbers.push(i);
   }
+
+  const paginate = (pageNumber: number) => {
+    const number = pageNumber === 1 ? 0 : pageNumber;
+    dispatch(fetchCharacters({ params: { offset: number * limit } }));
+  };
 
   return (
     <Grid container justify="center" alignItems="center">
       <Button
         size="large"
-        disabled={currentPage === pageNumbers[0] ? true : false}
+        disabled={page === pageNumbers[0] ? true : false}
         classes={{
           root: classes.root,
           disabled: classes.disabled,
         }}
-        onClick={() => paginate(currentPage - 1)}
+        onClick={() => paginate(page - 1)}
       >
         {'<<'}
       </Button>
@@ -26,9 +42,7 @@ function Pagination({ itensPerPage, totalItens, currentPage, paginate }: any) {
         <Grid item key={number}>
           <Button
             size="large"
-            className={`${classes.root} ${
-              currentPage === number && classes.active
-            }`}
+            className={`${classes.root} ${page === number && classes.active}`}
             onClick={() => paginate(number)}
           >
             {number}
@@ -37,14 +51,12 @@ function Pagination({ itensPerPage, totalItens, currentPage, paginate }: any) {
       ))}
       <Button
         size="large"
-        disabled={
-          currentPage === pageNumbers[pageNumbers.length - 1] ? true : false
-        }
+        disabled={page === pageNumbers[pageNumbers.length - 1] ? true : false}
         classes={{
           root: classes.root,
           disabled: classes.disabled,
         }}
-        onClick={() => paginate(currentPage + 1)}
+        onClick={() => paginate(page + 1)}
       >
         {'>>'}
       </Button>

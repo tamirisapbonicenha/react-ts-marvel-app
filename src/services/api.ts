@@ -14,6 +14,8 @@ export const api = axios.create({
   params: {
     ts: ts,
     apikey: PUBLIC_KEY,
-    hash: hash
+    hash: hash,
+    limit: 20,
+    offset: 0,
   }
 });
