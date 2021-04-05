@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home, ProfileDetail, Error } from '../pages';
+import { Home, CharacterDetail, Error } from '../pages';
 
 export function RenderRoutes() {
   return (
@@ -9,7 +9,7 @@ export function RenderRoutes() {
         <Home />
       </Route>
       <Route exact path="/char/:id">
-        <ProfileDetail />
+        <CharacterDetail />
       </Route>
       <Route>
         <Error />

@@ -9,7 +9,17 @@ type Paginate = {
 
 export const fetchCharacters = createAsyncThunk('characters/fetchCharacters', async (paginate: Paginate) => {
   const response = await api.get('/characters', paginate)
-  return response.data.data
+  return response.data.data;
+})
+
+export const fetchCharacterById = createAsyncThunk('characters/fetchCharacterById', async (id: number) => {
+  const response = await api.get(`/characters/${id}`)
+  return response.data.data;
+})
+
+export const fetchSeriesCharacter = createAsyncThunk('characters/fetchSeriesCharacter', async (id: number) => {
+  const response = await api.get(`/characters/${id}/series`)
+  return response.data.data;
 })
 
 export const charactersSlice = createSlice({
@@ -18,6 +28,8 @@ export const charactersSlice = createSlice({
     loading: false,
     error: '',
     characters: [],
+    character: [],
+    series: [],
     pagination: {
       total: 0,
       count: 0,
@@ -45,7 +57,27 @@ export const charactersSlice = createSlice({
     },
     [fetchCharacters.rejected.toString()]: (state, action) => {
       state.loading = false;
-    }
+    },
+    [fetchCharacterById.pending.toString()]: (state, action) => {
+      state.loading = true;
+    },
+    [fetchCharacterById.fulfilled.toString()]: (state, { payload }) => {
+      state.loading = false;
+      state.character = payload.results;
+    },
+    [fetchCharacterById.rejected.toString()]: (state, action) => {
+      state.loading = false;
+    },
+    [fetchSeriesCharacter.pending.toString()]: (state, action) => {
+      state.loading = true;
+    },
+    [fetchSeriesCharacter.fulfilled.toString()]: (state, { payload }) => {
+      state.loading = false;
+      state.series = payload.results;
+    },
+    [fetchSeriesCharacter.rejected.toString()]: (state, action) => {
+      state.loading = false;
+    },
   },
 });
 
