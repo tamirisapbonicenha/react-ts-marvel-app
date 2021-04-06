@@ -7,6 +7,12 @@ type Paginate = {
   }
 }
 
+type Search = {
+  params: {
+    name: string,
+  }
+}
+
 export const fetchCharacters = createAsyncThunk('characters/fetchCharacters', async (paginate: Paginate) => {
   const response = await api.get('/characters', paginate)
   return response.data.data;
@@ -19,6 +25,11 @@ export const fetchCharacterById = createAsyncThunk('characters/fetchCharacterByI
 
 export const fetchSeriesCharacter = createAsyncThunk('characters/fetchSeriesCharacter', async (id: number) => {
   const response = await api.get(`/characters/${id}/series`)
+  return response.data.data;
+})
+
+export const fetchCharacterByName = createAsyncThunk('characters/fetchCharacterByName', async (name: Search) => {
+  const response = await api.get('/characters', name)
   return response.data.data;
 })
 
@@ -76,6 +87,16 @@ export const charactersSlice = createSlice({
       state.series = payload.results;
     },
     [fetchSeriesCharacter.rejected.toString()]: (state, action) => {
+      state.loading = false;
+    },
+    [fetchCharacterByName.pending.toString()]: (state, action) => {
+      state.loading = true;
+    },
+    [fetchCharacterByName.fulfilled.toString()]: (state, { payload }) => {
+      state.loading = false;
+      state.characters = payload.results;
+    },
+    [fetchCharacterByName.rejected.toString()]: (state, action) => {
       state.loading = false;
     },
   },

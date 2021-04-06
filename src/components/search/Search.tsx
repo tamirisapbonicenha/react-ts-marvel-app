@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Typography, Grid, TextField } from '@material-ui/core';
+import { fetchCharacterByName } from '../../state/charactersSlice';
 import useStyles from './Search.styles';
 
 export default function Search() {
   const classes = useStyles();
+  const [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+
+  const handleSearchChange = (event: any) => {
+    setSearch(event.target.value);
+  };
+
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
+    if (!search) return;
+
+    dispatch(fetchCharacterByName({ params: { name: search } }));
+  }
 
   return (
     <>
@@ -11,7 +26,7 @@ export default function Search() {
         Procure por heróis! Um bom exemplo seria "Homem Aranha"
       </Typography>
       <Box mt={2}>
-        <form noValidate autoComplete="off">
+        <form autoComplete="off" onSubmit={handleFormSubmit}>
           <Grid container justify="center">
             <Grid item md={5}>
               <TextField
@@ -20,7 +35,9 @@ export default function Search() {
                 label="Busque por heróis"
                 variant="outlined"
                 size="small"
+                value={search}
                 fullWidth
+                onChange={handleSearchChange}
               />
             </Grid>
             <Grid item md={1}>
@@ -30,6 +47,7 @@ export default function Search() {
                 size="large"
                 disableElevation
                 fullWidth
+                type="submit"
               >
                 Buscar
               </Button>

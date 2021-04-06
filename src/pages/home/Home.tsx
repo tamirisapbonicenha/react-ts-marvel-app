@@ -4,7 +4,7 @@ import {
   fetchCharacters,
   charactersSelector,
 } from '../../state/charactersSlice';
-import { Container, Box, Grid } from '@material-ui/core';
+import { Container, Box, Grid, Typography } from '@material-ui/core';
 import loadingImage from '../../images/loading.gif';
 import { CharacterCard, Search, Pagination } from '../../components';
 
@@ -14,7 +14,6 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchCharacters({ params: { offset: 0 } }));
-    // dispatch(fetchCharacters());
   }, [dispatch]);
 
   return (
@@ -37,6 +36,11 @@ export default function Home() {
                 <CharacterCard character={character} />
               </Grid>
             ))
+          )}
+          {!loading && !characters.length && (
+            <Typography gutterBottom variant="h6" component="h2">
+              Não encontramos nenhum resultado, que tal tentar por "spider-man".
+            </Typography>
           )}
         </Grid>
       </Box>
