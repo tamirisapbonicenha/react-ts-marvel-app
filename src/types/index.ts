@@ -13,6 +13,13 @@ export type Paginate = {
   }
 }
 
+export type Pagination = {
+  total: 0,
+  count: 0,
+  offset: 0,
+  limit: 0,
+};
+
 export type Search = {
   params: {
     name: string,

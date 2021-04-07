@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { api } from '../services/api';
-import { Paginate, Search, InitialState, Character } from '../types'
+import { Paginate, Search, InitialState, Character, Pagination } from '../types'
 
 type CharacterState = {
-  characters: Character
+  characters: Character;
 }
 
 export const fetchCharacters = createAsyncThunk('characters/fetchCharacters', async (paginate: Paginate) => {
@@ -101,4 +101,4 @@ export const charactersSlice = createSlice({
 
 export const { paginate, fetchCharacterOnLocalStorage } = charactersSlice.actions
 
-export const charactersSelector = (state: CharacterState) => state.characters;
+export const charactersSelector = (state: any) => state.characters;
