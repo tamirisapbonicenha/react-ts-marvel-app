@@ -17,6 +17,7 @@ import {
   fetchCharacterOnLocalStorage,
 } from '../../state/charactersSlice';
 import useStyles from './CharacterDetail.style';
+import { Series } from '../../types';
 
 export default function CharacterDetail(): JSX.Element {
   const classes = useStyles();
@@ -86,7 +87,7 @@ export default function CharacterDetail(): JSX.Element {
             </Typography>
           </Box>
           <Grid container justify="center" alignItems="flex-start" spacing={2}>
-            {series.map((serie: any) => (
+            {series.map((serie: Series) => (
               <Grid item xs={6} sm={4} md={3} lg={2} key={serie.id}>
                 <Box className={classes.imageSerie} mb={1}>
                   <img
