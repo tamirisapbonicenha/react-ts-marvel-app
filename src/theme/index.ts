@@ -28,9 +28,6 @@ const theme = createMuiTheme({
     common,
     primary,
     secondary,
-    // text: {
-    //   primary: "#ececec"
-    // }
   },
   props: {},
   typography: {

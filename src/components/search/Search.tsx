@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Box, Button, Typography, Grid, TextField } from '@material-ui/core';
 import { fetchCharacterByName } from '../../state/charactersSlice';
 import useStyles from './Search.styles';
 
 export default function Search() {
   const classes = useStyles();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState<string>('');
   const dispatch = useDispatch();
 
-  const handleSearchChange = (event: any) => {
-    setSearch(event.target.value);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
-  const handleFormSubmit = (event: any) => {
-    event.preventDefault();
+  const handleFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!search) return;
 
     dispatch(fetchCharacterByName({ params: { name: search } }));
-  }
+  };
 
   return (
     <>
       <Typography variant="h6" className={classes.text} color="textPrimary">
-        Procure por heróis! Um bom exemplo seria "Homem Aranha"
+        Procure por personagens! Um bom exemplo seria "Spider-man"
       </Typography>
       <Box mt={2}>
         <form autoComplete="off" onSubmit={handleFormSubmit}>

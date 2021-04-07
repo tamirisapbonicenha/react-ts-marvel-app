@@ -5,10 +5,11 @@ import {
   charactersSelector,
 } from '../../state/charactersSlice';
 import { Container, Box, Grid, Typography } from '@material-ui/core';
+import { Character } from '../../types';
 import loadingImage from '../../images/loading.gif';
 import { CharacterCard, Search, Pagination } from '../../components';
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const { loading, characters, error } = useSelector(charactersSelector);
   const dispatch = useDispatch();
 
@@ -31,15 +32,15 @@ export default function Home() {
               />
             </Box>
           ) : (
-            characters.map((character: any) => (
+            characters.map((character: Character) => (
               <Grid item sm={6} md={4} key={character.id}>
                 <CharacterCard character={character} />
               </Grid>
             ))
           )}
-          {!loading && !characters.length && (
+          {!loading && !characters.length && !error && (
             <Typography gutterBottom variant="h6" component="h2">
-              Não encontramos nenhum resultado, que tal tentar por "spider-man".
+              Não encontramos nenhum resultado, que tal tentar por "loki".
             </Typography>
           )}
         </Grid>

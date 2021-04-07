@@ -6,7 +6,7 @@ import {
 } from '../../state/charactersSlice';
 import useStyles from './Pagination.styles';
 
-function Pagination() {
+function Pagination(): JSX.Element {
   const classes = useStyles();
   const {
     pagination: { limit, total, offset },

@@ -18,11 +18,10 @@ import {
 } from '../../state/charactersSlice';
 import useStyles from './CharacterDetail.style';
 
-export default function CharacterDetail() {
+export default function CharacterDetail(): JSX.Element {
   const classes = useStyles();
   let { id } = useParams<any>();
-  const [showEditForm, setShowEditForm] = useState(false);
-  const [characterName, setCharacterName] = useState('');
+  const [showEditForm, setShowEditForm] = useState<boolean>(false);
   const { loading, character, series, error, characterOnClient } = useSelector(
     charactersSelector
   );
@@ -37,12 +36,6 @@ export default function CharacterDetail() {
     }
     dispatch(fetchSeriesCharacter(id));
   }, [dispatch, id]);
-
-  const handleSaveForm = (e: any) => {
-    e.preventDefault();
-    if (characterName === '') return;
-    localStorage.setItem(id, JSON.stringify({ name: characterName }));
-  };
 
   if (loading && character.length === 0) return <p>Carregando...</p>;
 
