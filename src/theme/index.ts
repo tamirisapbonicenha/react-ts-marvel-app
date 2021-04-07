@@ -20,7 +20,7 @@ const secondary = {
   light: '#83ad31',
   main: '#659110',
   dark: '#466b00',
-  contrastText: primary.dark,
+  contrastText: common.white,
 };
 
 const theme = createMuiTheme({

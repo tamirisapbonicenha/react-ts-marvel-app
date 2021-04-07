@@ -32,5 +32,8 @@ export default makeStyles((theme) => ({
       height: '400px',
       objectFit: 'cover',
     }
+  },
+  form: {
+    padding: '16px 8px',
   }
 }));
