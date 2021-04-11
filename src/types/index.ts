@@ -9,7 +9,7 @@ export type Character = {
 
 export type Paginate = {
   params: {
-    offset: number,
+    offset: number;
   }
 }
 
