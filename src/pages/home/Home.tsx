@@ -52,11 +52,6 @@ export default function Home(): JSX.Element {
           <Loader />
         </Box>
       )}
-      {isNoResults && (
-        <Typography color="textPrimary" variant="h6" component="h2">
-          Não encontramos nenhum resultado, que tal tentar por "loki".
-        </Typography>
-      )}
       {isResults && (
         <>
           <Box pt={3}>
@@ -76,6 +71,13 @@ export default function Home(): JSX.Element {
             />
           </Box>
         </>
+      )}
+      {isNoResults && (
+        <Box textAlign="center">
+          <Typography color="textPrimary" variant="h6" component="p">
+            Não encontramos nenhum resultado, que tal tentar por "loki".
+          </Typography>
+        </Box>
       )}
       {error && <Error />}
     </Container>

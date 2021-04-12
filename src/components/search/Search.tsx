@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Button, Typography, Grid, TextField } from '@material-ui/core';
-import { fetchCharacterByName } from '../../state/charactersSlice';
-import useStyles from './Search.styles';
+import { fetchCharactersByName } from '../../state/charactersSlice';
 
 export default function Search() {
-  const classes = useStyles();
   const [search, setSearch] = useState<string>('');
   const dispatch = useDispatch();
 
@@ -17,14 +15,16 @@ export default function Search() {
     e.preventDefault();
     if (!search) return;
 
-    dispatch(fetchCharacterByName({ params: { name: search } }));
+    dispatch(fetchCharactersByName({ params: { name: search } }));
   };
 
   return (
     <>
-      <Typography variant="h6" className={classes.text} color="textPrimary">
-        Procure por personagens! Um bom exemplo seria "Spider-man"
-      </Typography>
+      <Box textAlign="center">
+        <Typography color="textPrimary" variant="h5">
+          Procure por personagens! Um bom exemplo seria "Spider-man"
+        </Typography>
+      </Box>
       <Box mt={2}>
         <form autoComplete="off" onSubmit={handleFormSubmit}>
           <Grid container justify="center">
@@ -32,7 +32,7 @@ export default function Search() {
               <TextField
                 name="search"
                 id="name"
-                label="Busque por heróis"
+                label="Busque por personagens"
                 variant="outlined"
                 size="small"
                 value={search}

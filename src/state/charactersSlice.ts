@@ -16,29 +16,28 @@ export const fetchCharacters = createAsyncThunk('characters/fetchCharacters', as
     }
     return rejectWithValue(err.response)
   }
-})
+});
 
-export const fetchCharacterById = createAsyncThunk('characters/fetchCharacterById', async (id: number) => {
+export const fetchCharactersByName = createAsyncThunk('characters/fetchCharactersByName', async (name: Search) => {
+  const response = await api.get('/characters', name)
+  return response.data.data;
+});
+
+export const fetchCharactersById = createAsyncThunk('characters/fetchCharactersById', async (id: number) => {
   const response = await api.get(`/characters/${id}`)
   return response.data.data;
-})
+});
 
 export const fetchSeriesCharacter = createAsyncThunk('characters/fetchSeriesCharacter', async (id: number) => {
   const response = await api.get(`/characters/${id}/series`)
   return response.data.data;
-})
-
-export const fetchCharacterByName = createAsyncThunk('characters/fetchCharacterByName', async (name: Search) => {
-  const response = await api.get('/characters', name)
-  return response.data.data;
-})
+});
 
 export const charactersSlice = createSlice({
   name: 'characters',
   initialState: {
     loading: false,
     error: '',
-
     characters: [],
     character: [],
     characterOnClient: {},
@@ -75,14 +74,28 @@ export const charactersSlice = createSlice({
       state.loading = false;
       state.error = payload.data;
     },
-    [fetchCharacterById.pending.toString()]: (state, action) => {
+    [fetchCharactersByName.pending.toString()]: (state, action) => {
       state.loading = true;
     },
-    [fetchCharacterById.fulfilled.toString()]: (state, { payload }) => {
+    [fetchCharactersByName.fulfilled.toString()]: (state, { payload }) => {
+      state.loading = false;
+      state.characters = payload.results;
+      state.pagination.total = payload.total;
+      state.pagination.count = payload.count;
+      state.pagination.offset = payload.offset;
+      state.pagination.limit = payload.limit;
+    },
+    [fetchCharactersByName.rejected.toString()]: (state, action) => {
+      state.loading = false;
+    },
+    [fetchCharactersById.pending.toString()]: (state, action) => {
+      state.loading = true;
+    },
+    [fetchCharactersById.fulfilled.toString()]: (state, { payload }) => {
       state.loading = false;
       state.character = payload.results;
     },
-    [fetchCharacterById.rejected.toString()]: (state, action) => {
+    [fetchCharactersById.rejected.toString()]: (state, action) => {
       state.loading = false;
     },
     [fetchSeriesCharacter.pending.toString()]: (state, action) => {
@@ -93,16 +106,6 @@ export const charactersSlice = createSlice({
       state.series = payload.results;
     },
     [fetchSeriesCharacter.rejected.toString()]: (state, action) => {
-      state.loading = false;
-    },
-    [fetchCharacterByName.pending.toString()]: (state, action) => {
-      state.loading = true;
-    },
-    [fetchCharacterByName.fulfilled.toString()]: (state, { payload }) => {
-      state.loading = false;
-      state.characters = payload.results;
-    },
-    [fetchCharacterByName.rejected.toString()]: (state, action) => {
       state.loading = false;
     },
   },

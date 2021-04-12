@@ -2,7 +2,6 @@ interface ErrorObject {
   status: string,
   message: string,
 }
-
 interface ErrorMessages<T> {
   [Key: string]: T;
 }

@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import {
   charactersSelector,
-  fetchCharacterById,
+  fetchCharactersById,
   fetchSeriesCharacter,
   fetchCharacterOnLocalStorage,
 } from '../../state/charactersSlice';
@@ -30,7 +30,7 @@ export default function CharacterDetail(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCharacterById(id));
+    dispatch(fetchCharactersById(id));
     if (localStorage.getItem(id) !== null) {
       let char = localStorage.getItem(id) || '';
       dispatch(fetchCharacterOnLocalStorage(JSON.parse(char)));

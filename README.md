@@ -38,3 +38,4 @@ Rode o projeto em modo de desenvolvimento
 - Paginar os seriados na página de detalhes.
 - Melhorar a página de NotFound.
 - Fazer o deploy da aplicação no netlify
+- Typeahead na busca.
