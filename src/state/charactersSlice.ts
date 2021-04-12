@@ -6,9 +6,16 @@ type CharacterState = {
   characters: Character;
 }
 
-export const fetchCharacters = createAsyncThunk('characters/fetchCharacters', async (paginate: Paginate) => {
-  const response = await api.get('/characters', paginate)
-  return response.data.data;
+export const fetchCharacters = createAsyncThunk('characters/fetchCharacters', async (paginate: Paginate, { rejectWithValue }) => {
+  try {
+    const response = await api.get('/characters', paginate)
+    return response.data.data;
+  } catch (err) {
+    if (!err.response) {
+      throw err
+    }
+    return rejectWithValue(err.response)
+  }
 })
 
 export const fetchCharacterById = createAsyncThunk('characters/fetchCharacterById', async (id: number) => {
@@ -31,6 +38,7 @@ export const charactersSlice = createSlice({
   initialState: {
     loading: false,
     error: '',
+
     characters: [],
     character: [],
     characterOnClient: {},
@@ -63,8 +71,9 @@ export const charactersSlice = createSlice({
       state.pagination.offset = payload.offset;
       state.pagination.limit = payload.limit;
     },
-    [fetchCharacters.rejected.toString()]: (state, action) => {
+    [fetchCharacters.rejected.toString()]: (state, { payload }) => {
       state.loading = false;
+      state.error = payload.data;
     },
     [fetchCharacterById.pending.toString()]: (state, action) => {
       state.loading = true;

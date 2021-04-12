@@ -6,7 +6,13 @@ import {
 } from '../../state/charactersSlice';
 import { Container, Box, Grid, Typography } from '@material-ui/core';
 import { Character } from '../../types';
-import { Search, Loader, CharacterCard, Pagination } from '../../components';
+import {
+  Search,
+  Loader,
+  Error,
+  CharacterCard,
+  Pagination,
+} from '../../components';
 
 export default function Home(): JSX.Element {
   const [offset, setOffset] = useState(0);
@@ -71,7 +77,7 @@ export default function Home(): JSX.Element {
           </Box>
         </>
       )}
-      {error && <span>Error</span>}
+      {error && <Error />}
     </Container>
   );
 }
