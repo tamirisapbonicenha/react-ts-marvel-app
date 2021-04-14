@@ -37,9 +37,10 @@ Rode o projeto em modo de desenvolvimento
 
 ### TODO
 
-- Escrever mais testes =/
+- Escrever mais testes\*\*
 - Paginar os seriados na página de detalhes.
 - Melhorar a página de NotFound.
 - Typeahead na busca.
 - Separar responsabilidades dos loadings state do fetch de personagens e séries.
 - Setar e recuperar dados do localStorage para atualizar os dados do personagens na página de detalhe.
+- Extrair componente do form de edição na página de detalhe.
