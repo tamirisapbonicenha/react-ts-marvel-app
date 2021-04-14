@@ -1,6 +1,7 @@
 export type Character = {
-  name: string;
   id: number;
+  name: string;
+  description: string;
   thumbnail: {
     path: string;
     extension: string;
@@ -27,8 +28,8 @@ export type Search = {
 }
 
 export type Series = {
-  title: string;
   id: number;
+  title: string;
   thumbnail: {
     path: string;
     extension: string;
@@ -40,7 +41,7 @@ export type InitialState = {
   error: string,
   characters: Character[],
   character: Character[],
-  characterOnClient?: {},
+  characterOnClient?: null,
   series: [],
   pagination: {
     total: number,

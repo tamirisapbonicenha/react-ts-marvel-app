@@ -21,8 +21,8 @@ export default function CharacterCard({
   const classes = useStyles();
   const history = useHistory();
   const {
-    name,
     id,
+    name,
     thumbnail: { path, extension },
   } = character;
 

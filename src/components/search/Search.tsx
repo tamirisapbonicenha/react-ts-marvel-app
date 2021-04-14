@@ -30,8 +30,8 @@ export default function Search() {
           <Grid container justify="center">
             <Grid item md={5}>
               <TextField
-                name="search"
                 id="name"
+                name="search"
                 label="Busque por personagens"
                 variant="outlined"
                 size="small"

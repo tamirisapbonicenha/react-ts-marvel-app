@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
     textAlign: 'center',
   },
   imageChar: {
+    margin: '16px auto 0',
     maxWidth: 500,
     '& img': {
       display: 'block',
@@ -34,6 +35,12 @@ export default makeStyles((theme) => ({
     }
   },
   form: {
+    width: '300px',
     padding: '16px 8px',
+  },
+  textArea: {
+    '& .MuiOutlinedInput-root': {
+      height: 'auto',
+    }
   }
 }));

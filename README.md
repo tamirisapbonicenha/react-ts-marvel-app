@@ -39,3 +39,5 @@ Rode o projeto em modo de desenvolvimento
 - Melhorar a página de NotFound.
 - Fazer o deploy da aplicação no netlify
 - Typeahead na busca.
+- Separar responsabilidades dos loadings state do fetch de personagens e séries.
+- Setar e recuperar dados do localStorage para atualizar os dados do personagens na página de detalhe.

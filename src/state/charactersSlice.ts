@@ -40,7 +40,6 @@ export const charactersSlice = createSlice({
     error: '',
     characters: [],
     character: [],
-    characterOnClient: {},
     series: [],
     pagination: {
       total: 0,
@@ -48,12 +47,16 @@ export const charactersSlice = createSlice({
       offset: 0,
       limit: 0,
     },
-  },
+  } as InitialState,
   reducers: {
     paginate: (state) => {
      state.loading = true;
     },
-    fetchCharacterOnLocalStorage: (state, action) => {
+    setCharacterOnLocalStorage: (state, { payload }) => {
+      state.character[0].name = payload.name;
+      state.character[0].description = payload.description;
+    },
+    getCharacterOnLocalStorage: (state, action) => {
       state.characterOnClient = action.payload
     },
   },
@@ -111,6 +114,6 @@ export const charactersSlice = createSlice({
   },
 });
 
-export const { paginate, fetchCharacterOnLocalStorage } = charactersSlice.actions
+export const { paginate, setCharacterOnLocalStorage, getCharacterOnLocalStorage } = charactersSlice.actions
 
 export const charactersSelector = (state: any) => state.characters;
