@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { api } from '../services/api';
-import { Paginate, Search, InitialState, Character, Pagination } from '../types'
+import { InitialState, ErrorRawData, Paginate, Search, Character, Pagination } from '../types'
+import type { RootState } from '../store'
 
 type CharacterState = {
   characters: Character;
@@ -33,21 +34,23 @@ export const fetchSeriesCharacter = createAsyncThunk('characters/fetchSeriesChar
   return response.data.data;
 });
 
+const initialState = {
+  loading: false,
+  error: null,
+  characters: [],
+  character: [],
+  series: [],
+  pagination: {
+    total: 0,
+    count: 0,
+    offset: 0,
+    limit: 0,
+  },
+} as InitialState;
+
 export const charactersSlice = createSlice({
   name: 'characters',
-  initialState: {
-    loading: false,
-    error: '',
-    characters: [],
-    character: [],
-    series: [],
-    pagination: {
-      total: 0,
-      count: 0,
-      offset: 0,
-      limit: 0,
-    },
-  } as InitialState,
+  initialState,
   reducers: {
     paginate: (state) => {
      state.loading = true;
@@ -73,7 +76,7 @@ export const charactersSlice = createSlice({
       state.pagination.offset = payload.offset;
       state.pagination.limit = payload.limit;
     },
-    [fetchCharacters.rejected.toString()]: (state, { payload }) => {
+    [fetchCharacters.rejected.toString()]: (state, { payload }: PayloadAction<ErrorRawData>) => {
       state.loading = false;
       state.error = payload.data;
     },
@@ -116,4 +119,4 @@ export const charactersSlice = createSlice({
 
 export const { paginate, setCharacterOnLocalStorage, getCharacterOnLocalStorage } = charactersSlice.actions
 
-export const charactersSelector = (state: any) => state.characters;
+export const charactersSelector = (state: RootState) => state.characters;

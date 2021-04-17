@@ -5,6 +5,7 @@ import {
   charactersSelector,
 } from '../../state/charactersSlice';
 import { Container, Box, Grid, Typography } from '@material-ui/core';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { Character } from '../../types';
 import {
   Search,
@@ -16,10 +17,10 @@ import {
 
 export default function Home(): JSX.Element {
   const [offset, setOffset] = useState(0);
-  const { loading, characters, error, pagination } = useSelector(
+  const { loading, characters, error, pagination } = useAppSelector(
     charactersSelector
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchCharacters({ params: { offset: offset } }));

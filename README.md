@@ -15,7 +15,9 @@ Link: https://react-ts-marvel-app.netlify.app/
 ## Requisitos
 
 Node.js
+
 Yarn
+
 Chave pública e privada gerada na API da Marvel
 
 Ps: Para mais informações de como consegui-lá, siga [essas instruções](https://developer.marvel.com/documentation/getting_started). Também é necessário autorizar o domínio de desenvolvimento para realizar requests a API.
